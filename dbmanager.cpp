@@ -210,7 +210,33 @@ QMap<QString, QString> DbManager::getUser(QString id) const
 //    {
 //        QString name = query.value(idName).toString();
 //        qDebug() << "===" << name;
-//    }
+            //    }
+}
+
+QVariant DbManager::countUser()
+{
+
+    QSqlQuery query;
+    query.prepare("SELECT count(*) as count FROM users");
+    QVariant count;
+        if (query.exec())
+        {
+            int idCount = query.record().indexOf("count");
+
+            if (query.next())
+            {
+                count=query.value(idCount);
+
+                qDebug() << "===" << query.value(idCount);
+            }
+        }
+        else
+        {
+            qDebug() << "no data found  " << query.lastError();
+        }
+
+        return count;
+
 }
 bool DbManager::personExists(const QString& name) const
 {

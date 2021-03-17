@@ -68,6 +68,13 @@ public:
                       const QString& description);
         QMap<QString,QString> getUser(QString id) const  ;
 
+        /**
+         * @brief  all count Users of  db
+         * @param
+         * @return  return all count Users of  db
+         */
+        QVariant countUser();
+
 
 private:
     QSqlDatabase m_db;
