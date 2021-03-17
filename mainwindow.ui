@@ -6,12 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1058</width>
-    <height>451</height>
+    <width>1055</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton:hover:!pressed
+{
+  border: 1px solid red;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTableView" name="tableView">
@@ -27,8 +34,8 @@
    <widget class="QPushButton" name="btn_create_user">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>350</y>
+      <x>900</x>
+      <y>360</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -37,28 +44,41 @@
      <string>Create User</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QPushButton" name="btn_load_user_data">
     <property name="geometry">
      <rect>
-      <x>67</x>
-      <y>30</y>
-      <width>411</width>
-      <height>351</height>
+      <x>20</x>
+      <y>360</y>
+      <width>101</width>
+      <height>31</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QTableView" name="tbl_user"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_load_user_data">
-       <property name="text">
-        <string>load Data</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-    <zorder>tbl_user</zorder>
+    <property name="text">
+     <string>RefreshData</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tbl_user">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>1011</width>
+      <height>349</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lblCountOfUser">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>370</y>
+      <width>321</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -66,7 +86,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1058</width>
+     <width>1055</width>
      <height>22</height>
     </rect>
    </property>

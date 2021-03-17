@@ -16,29 +16,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QList<QString> contactNames;
-    QList<QString> contactPhoneNums;
+    QSqlQuery query;
+    DbManager db(path);
+   if(db.isOpen()){
+       query=db.getUserTable();
 
-    // Create some data that is tabular in nature:
-    contactNames.append("Thomas");
-    contactNames.append("Richard");
-    contactNames.append("Harrison");
-    contactPhoneNums.append("123-456-7890");
-    contactPhoneNums.append("222-333-4444");
-    contactPhoneNums.append("333-444-5555");
 
-    // Create model:
-    TestModel* PhoneBookModel = new TestModel(this);
+       //get total count of User
+       ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString()));
+       qDebug() << "Endss"<<db.countUser();
+   }
+   else
+   {
+       qDebug() << "Database is not open!";
+   }
+   QSqlQueryModel* modal=new QSqlQueryModel();
 
-    // Populate model with data:
-    PhoneBookModel->populateData(contactNames,contactPhoneNums);
 
-    // Connect model to table view:
-    ui->tableView->setModel(PhoneBookModel);
-
-    // Make table header visible and display table:
-    ui->tableView->horizontalHeader()->setVisible(true);
-    ui->tableView->show();
+   modal->setQuery(query);
+   ui->tbl_user->setModel(modal);
 
 }
 
