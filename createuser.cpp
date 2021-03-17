@@ -14,10 +14,20 @@ CreateUser::CreateUser(QWidget *parent) :
 {
     ui->setupUi(this);
     load_combo_relation_role_id();
+
+
+    connect(ui->txt_username,&QLineEdit::textChanged,this,&CreateUser::checkInput);
+
+    connect(ui->txt_password,&QLineEdit::textChanged,this,&CreateUser::checkInput);
+
     if(_createMode){
         ui->lbl_password_old->setVisible(false);
         ui->txt_password_old->setVisible(false);
     }
+    //regex validators
+
+    QRegularExpression rx("\\b^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})\\b",QRegularExpression::CaseInsensitiveOption);
+    ui->txt_password->setValidator(new QRegularExpressionValidator(rx,this));
 
 }
 
@@ -114,7 +124,8 @@ void CreateUser::createUser()
     DbManager db(path);
    if(db.isOpen()){
 //        db.createTable();
-//        db.addPerson("ali");
+//        db.addPerson("ali");    void on_pushButton_2_clicked();
+
 //        db.addPerson("reza");
        query=db.addUser(username,md5Pass,(cmb+1),date,description);
        qDebug() << username << md5Pass << cmb << "End";
@@ -162,4 +173,36 @@ void CreateUser::updateUser()
 //       qDebug() << "Database is not open!";
 //   }
 //    qDebug() << "aa" << date << username << md5Pass<< cmb+1;
+}
+
+
+
+void CreateUser::on_btnClose_clicked()
+{
+    reject();
+}
+
+void CreateUser::checkInput()
+{
+    QLineEdit *txt_username=ui->txt_username;
+
+    if(txt_username->text().length()<2)
+    {
+        txt_username->setStyleSheet("QLineEdit {color:red;}");
+    }
+    else{
+        txt_username->setStyleSheet("QLineEdit {color:black;}");
+    }
+
+
+    if(ui->txt_password->hasAcceptableInput()){
+        txt_username->setStyleSheet("QLineEdit {color:black;}");
+
+    }
+    else{
+        txt_username->setStyleSheet("QLineEdit {color:red;}");
+    }
+    qDebug()<<"ssss"<<ui->txt_password->hasAcceptableInput();
+
+
 }
