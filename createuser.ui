@@ -176,6 +176,18 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>txt_username</tabstop>
+  <tabstop>txt_password</tabstop>
+  <tabstop>txt_password_old</tabstop>
+  <tabstop>txt_password_confirm</tabstop>
+  <tabstop>txt_permision</tabstop>
+  <tabstop>cmbRoles</tabstop>
+  <tabstop>date_exp</tabstop>
+  <tabstop>txtDescription</tabstop>
+  <tabstop>btn_create_user</tabstop>
+  <tabstop>btnClose</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

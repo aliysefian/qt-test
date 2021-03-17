@@ -53,14 +53,19 @@ bool DbManager::createTable()
     return success;
 }
 
-QSqlQuery DbManager::getUserTable()
+QSqlQuery DbManager::getUserTable(const int& pagesize=10,const int& current=1)
 {
     qDebug() << "Users in db:";
 //    QSqlQuery query("SELECT username,"
 //                    " datetime(register_Date,'unixepoch') as register_Date,"
 //                    "datetime(last_login_date,'unixepoch') as [last login]"
 //                    " FROM users");
-    QSqlQuery query("SELECT * from users");
+    QSqlQuery query;
+    query.prepare("SELECT * from users limit (:pagesize) offset (:offset)");
+    query.bindValue(":pagesize", pagesize);
+    query.bindValue(":offset", ((current-1)*pagesize));
+    query.exec();
+    qDebug() << "last"<<query.lastQuery();
 //    int idName = query.record().indexOf("username");
     return query;
 //    while (query.next())
