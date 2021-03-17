@@ -26,8 +26,15 @@ public:
 
         void on_btn_create_user_clicked();
 
+        void on_btnNext_clicked();
+
+        void on_btnPrevPage_clicked();
+
 private:
     Ui::MainWindow *ui;
+    int _current_page=0;
+    int _pagination_per_page=1;
+    QVariant _totalUserInDb;
 };
 
 #endif // MAINWINDOW_H
