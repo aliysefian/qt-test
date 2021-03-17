@@ -2,7 +2,8 @@
 #define CREATEUSER_H
 
 #include <QDialog>
-
+#include<QRegularExpression>
+#include<QRegularExpressionValidator>
 namespace Ui {
 class CreateUser;
 }
@@ -21,6 +22,13 @@ private slots:
     void load_combo_relation_role_id();
     void on_cmbRoles_currentIndexChanged(int index);
 
+
+    void on_btnClose_clicked();
+
+
+    //3party Func
+
+    void checkInput();
 
 private:
     Ui::CreateUser *ui;

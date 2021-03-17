@@ -26,7 +26,7 @@
     <string>Save</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btnClose">
    <property name="geometry">
     <rect>
      <x>490</x>
