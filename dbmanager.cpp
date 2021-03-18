@@ -26,6 +26,7 @@ DbManager::DbManager(const QString& path)
 
 DbManager::~DbManager()
 {
+
     if (m_db.isOpen())
     {
         m_db.close();
@@ -243,6 +244,59 @@ QVariant DbManager::countUser()
         return count;
 
 }
+bool DbManager::updateUser(const QString& id,const QString& name,const QString& permission,const QString& password,
+                           const int& role,const QString& expire_date,
+                           const QString& description,const bool& isPaswordChangeMode)
+{
+    bool success = false;
+    if (!name.isEmpty())
+    {
+        QSqlQuery queryAdd;
+        if(isPaswordChangeMode){
+            queryAdd.prepare("update users set (username,password,permission,role_id,password_expire_date,description)  "
+                             " = ((:name),(:password),:permission,(:role_id),:password_expire_date,:description)"
+                             "where id=:id");
+            queryAdd.bindValue(":id", id);
+            queryAdd.bindValue(":name", name);
+            queryAdd.bindValue(":password", password);
+            queryAdd.bindValue(":role_id",role);
+            queryAdd.bindValue(":password_expire_date",expire_date);
+            queryAdd.bindValue(":description",description);
+            queryAdd.bindValue(":permission", permission);
+        }
+        else{
+            queryAdd.prepare("update users set (username,permission,role_id,password_expire_date,description)  "
+                             " = ((:name),:permission,(:role_id),:password_expire_date,:description)"
+                             "where id=:id");
+            queryAdd.bindValue(":id", id);
+            queryAdd.bindValue(":name", name);
+
+            queryAdd.bindValue(":role_id",role);
+            queryAdd.bindValue(":password_expire_date",expire_date);
+            queryAdd.bindValue(":description",description);
+            queryAdd.bindValue(":permission", permission);
+
+        }
+        if(queryAdd.exec())
+        {
+            success = true;
+        }
+        else
+        {
+            qDebug() << "add person failed: " << queryAdd.lastError();
+        }
+    }
+    else
+    {
+        qDebug() << "add person failed: name cannot be empty";
+    }
+
+    return success;
+
+}
+
+
+
 bool DbManager::personExists(const QString& name) const
 {
     bool exists = false;

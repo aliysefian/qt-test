@@ -4,6 +4,7 @@
 #include <QDialog>
 #include<QRegularExpression>
 #include<QRegularExpressionValidator>
+#include<QMessageBox>
 namespace Ui {
 class CreateUser;
 }
@@ -33,7 +34,9 @@ private slots:
 private:
     Ui::CreateUser *ui;
     bool _createMode=true;
+
     QString _password="";
+    QString _idUser="";
     void createUser();
     void updateUser();
 };

@@ -34,6 +34,7 @@ CreateUser::CreateUser(QWidget *parent) :
 void CreateUser::getDataBetweenForms(QString id)
 {
     qDebug()<<"dddd"<<id;
+    _idUser=id;
     _createMode=false;
     QString path="";
     DbManager db(path);
@@ -140,39 +141,65 @@ void CreateUser::createUser()
 
 void CreateUser::updateUser()
 {
+
     QString username=ui->txt_username->text();
     QString password=ui->txt_password->text();
     QString passwordConfirm=ui->txt_password_confirm->text();
     QString passwordOld=ui->txt_password_old->text();
+    QString permision=ui->txt_permision->text();
+
 
     int cmb=ui->cmbRoles->currentIndex();
     QString date=ui->date_exp->text();
     QString description=ui->txtDescription->toPlainText();
     QString md5PassOld = QString(QCryptographicHash::hash((passwordOld.toUtf8()),QCryptographicHash::Md5).toHex());
+    QString md5NewPassword = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Md5).toHex());
 
     if(passwordOld.length()>0){
         if(md5PassOld==_password){
             qDebug()<< "equallll";
+
+            QString path="";
+            bool query;
+            DbManager db(path);
+           if(db.isOpen()){
+               query=db.updateUser(_idUser,username,permision,md5NewPassword,(cmb+1),date,description,true);
+               qDebug() << username << md5NewPassword << cmb << "End";
+           }
+           else
+           {
+               qDebug() << "Database is not open!";
+           }
+            qDebug() << "update iwth password." << date << username << md5NewPassword<< cmb+1;
+            return;
+        }
+        else{
+//            QMessageBox msgBox;
+//            msgBox.setText("Your old password does not match.");
+//            msgBox.exec();
+            QMessageBox::critical(this, tr("Update User "),
+                                          tr("Your old password does not match."
+                                             ),
+                                          QMessageBox::Discard
+                                          );
+            return;
         }
     }
-
-
+    qDebug()<< "change without passowd";
 
     QString path="";
     bool query;
     DbManager db(path);
-//   if(db.isOpen()){
-////        db.createTable();
-////        db.addPerson("ali");
-////        db.addPerson("reza");
-//       query=db.addUser(username,md5Pass,(cmb+1),date,description);
-//       qDebug() << username << md5Pass << cmb << "End";
-//   }
-//   else
-//   {
-//       qDebug() << "Database is not open!";
-//   }
-//    qDebug() << "aa" << date << username << md5Pass<< cmb+1;
+   if(db.isOpen()){
+       query=db.updateUser(_idUser,username,permision,md5NewPassword,(cmb+1),date,description,false);
+       qDebug() << username << md5NewPassword << cmb << "End";
+   }
+   else
+   {
+       qDebug() << "Database is not open!";
+   }
+    qDebug() << "update not password." << date << username << md5NewPassword<< cmb+1;
+
 }
 
 

@@ -33,7 +33,7 @@ public:
 private:
     Ui::MainWindow *ui;
     int _current_page=0;
-    int _pagination_per_page=3;
+    int _pagination_per_page=10;
     QVariant _totalUserInDb;
 };
 
