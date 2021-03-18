@@ -98,12 +98,16 @@
      <rect>
       <x>130</x>
       <y>360</y>
-      <width>111</width>
+      <width>131</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
      <string>previous page</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>images/iconfinder_floppy_285657.png</normaloff>images/iconfinder_floppy_285657.png</iconset>
     </property>
    </widget>
   </widget>

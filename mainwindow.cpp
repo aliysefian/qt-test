@@ -16,11 +16,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+//    setCentralWidget(ui->tableView);
+
     QSqlQuery query;
     DbManager db(path);
     _current_page++;
    if(db.isOpen()){
-       query=db.getUserTable(1,_current_page);
+       query=db.getUserTable(_pagination_per_page,_current_page);
        _totalUserInDb=db.countUser();
        ui->lblCountOfUser->setText(QString("Total User is : %1").arg(_totalUserInDb.toString()));
        qDebug() << "Endss"<<_totalUserInDb;
@@ -112,7 +115,7 @@ void MainWindow::on_btnNext_clicked()
    if(db.isOpen()){
 
 
-       query=db.getUserTable(1,_current_page);
+       query=db.getUserTable(_pagination_per_page,_current_page);
 
 
        //get total count of User
@@ -143,7 +146,7 @@ void MainWindow::on_btnPrevPage_clicked()
         return ;
     }
    if(db.isOpen()){
-       query=db.getUserTable(1,_current_page);
+       query=db.getUserTable(_pagination_per_page,_current_page);
 
 
        //get total count of User

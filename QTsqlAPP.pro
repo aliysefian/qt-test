@@ -45,3 +45,6 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
     createuser.ui
+
+RESOURCES += \
+    resources.qrc
