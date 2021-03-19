@@ -43,7 +43,26 @@ bool DbManager::createTable()
     bool success = false;
 
     QSqlQuery query;
-    query.prepare("CREATE TABLE people(id INTEGER PRIMARY KEY, name TEXT);");
+    query.prepare(
+                "create table users"
+                  "(                      id                   integer not null"
+                 "         constraint users_pk"
+                          "    primary key autoincrement,"
+                    "  username             varchar(50),"
+                    "  password             varchar(200),"
+                 "     role_id              integer"
+                      "    references roles"
+                           "   on update cascade on delete cascade,"
+                    "  permission           int default 1.84467440737096e+19,"
+                   "   register_date        datetime,"
+                    "  password_expire_date datetime,"
+                    "  last_login_date      datetime,"
+                   "   description          varchar"
+              "    );"
+
+              "    create unique index users_id_uindex"
+                    "  on users (id);"
+            );
 
     if (!query.exec())
     {
@@ -90,7 +109,7 @@ bool DbManager::addPerson(const QString& name)
     if (!name.isEmpty())
     {
         QSqlQuery queryAdd;
-        queryAdd.prepare("INSERT INTO people (name) VALUES (:name)");
+        queryAdd.prepare("INSERT INTO users (name) VALUES (:name)");
         queryAdd.bindValue(":name", name);
 
         if(queryAdd.exec())
@@ -147,7 +166,7 @@ bool DbManager::removePerson(const QString& name)
 //    if (personExists(name))
 //    {
     QSqlQuery queryDelete;
-    queryDelete.prepare("DELETE FROM people WHERE name = (:name)");
+    queryDelete.prepare("DELETE FROM users WHERE id = (:name)");
     queryDelete.bindValue(":name", name);
     success = queryDelete.exec();
 

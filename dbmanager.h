@@ -14,10 +14,16 @@ public:
      bool isOpen() const;
 
          /**
-          * @brief Creates a new 'people' table if it doesn't already exist
-          * @return true - 'people' table created successfully, false - table not created
+          * @brief Creates a new 'Users' table if it doesn't already exist
+          * @return true - 'Users' table created successfully, false - table not created
           */
          bool createTable();
+
+         /**
+          * @brief fetch person data to db
+          * @param pagesize- page size in each view ,current- the current page that is active
+          * @return true - all user if search is ""
+          */
          QSqlQuery getUserTable(const int& pagesize, const int& current, const QString &serach);
 
          /**
@@ -59,9 +65,9 @@ public:
           */
          QSqlQuery getAllRoles();
          /**
-          * @brief Add person data to db
-          * @param name - name of person to add
-          * @return true - person added successfully, false - person not added
+          * @brief Add Users data to db
+
+          * @return true - users added successfully, false - users not added
           */
          bool addUser(const QString& name,const QString& password,
                       const int& role,const QString& expire_date,
@@ -88,9 +94,9 @@ public:
                             const int& role, const QString& expire_date,
                             const QString& description, const bool &isPaswordChangeMode);
         /**
-         * @brief  all count Users of  db
+         * @brief udate user last login
          * @param
-         * @return  return all count Users of  db
+         * @return  return true if is success
          */
         bool updateUserLastLoginDate(const QString &id);
 
