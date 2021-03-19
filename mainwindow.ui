@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1058</width>
-    <height>577</height>
+    <height>588</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,135 +21,84 @@
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>25</x>
-      <y>81</y>
-      <width>16</width>
-      <height>16</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_create_user">
-    <property name="geometry">
-     <rect>
-      <x>900</x>
-      <y>450</y>
-      <width>121</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Create User</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btn_load_user_data">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>450</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>RefreshData</string>
-    </property>
-   </widget>
-   <widget class="QTableView" name="tbl_user">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>1011</width>
-      <height>349</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblCountOfUser">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>460</y>
-      <width>321</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">body{
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QLabel" name="lblCurrentUser">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="lblSearch">
+          <property name="text">
+           <string>Serach:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="txtSearch"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QTableView" name="tbl_user"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="btn_load_user_data">
+          <property name="text">
+           <string>RefreshData</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnPrevPage">
+          <property name="text">
+           <string>previous page</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normaloff>images/iconfinder_floppy_285657.png</normaloff>images/iconfinder_floppy_285657.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCountOfUser">
+          <property name="styleSheet">
+           <string notr="true">body{
 backgound-color:&quot;red&quot;
 }</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnNext">
-    <property name="geometry">
-     <rect>
-      <x>800</x>
-      <y>450</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>NextPage</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnPrevPage">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>450</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>previous page</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>images/iconfinder_floppy_285657.png</normaloff>images/iconfinder_floppy_285657.png</iconset>
-    </property>
-   </widget>
-   <widget class="QLabel" name="lblCurrentUser">
-    <property name="geometry">
-     <rect>
-      <x>16</x>
-      <y>6</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>50</y>
-      <width>381</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="lblSearch">
-       <property name="text">
-        <string>Serach:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="txtSearch"/>
-     </item>
-    </layout>
-   </widget>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnNext">
+          <property name="text">
+           <string>NextPage</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btn_create_user">
+          <property name="text">
+           <string>Create User</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
