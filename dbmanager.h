@@ -18,7 +18,7 @@ public:
           * @return true - 'people' table created successfully, false - table not created
           */
          bool createTable();
-         QSqlQuery getUserTable(const int& pagesize,const int& current);
+         QSqlQuery getUserTable(const int& pagesize, const int& current, const QString &serach);
 
          /**
           * @brief Add person data to db

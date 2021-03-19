@@ -2,4 +2,7 @@
     <qresource prefix="/files">
         <file>images/iconfinder_floppy_285657.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>db.qrc</file>
+    </qresource>
 </RCC>

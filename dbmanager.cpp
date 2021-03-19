@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QMap>
 
-static const QString pathreal = "/home/ali/QT/QTDatatableView/project.db";
+static const QString pathreal = "/home/ali/QT/QTsqlAPP/project.db";
 
 DbManager::DbManager(const QString& path)
 {
@@ -54,26 +54,33 @@ bool DbManager::createTable()
     return success;
 }
 
-QSqlQuery DbManager::getUserTable(const int& pagesize=10,const int& current=1)
+QSqlQuery DbManager::getUserTable(const int& pagesize=10,const int& current=1,const QString& serach="")
 {
     qDebug() << "Users in db:";
-//    QSqlQuery query("SELECT username,"
-//                    " datetime(register_Date,'unixepoch') as register_Date,"
-//                    "datetime(last_login_date,'unixepoch') as [last login]"
-//                    " FROM users");
+
     QSqlQuery query;
-    query.prepare("SELECT * from users limit (:pagesize) offset (:offset)");
-    query.bindValue(":pagesize", pagesize);
-    query.bindValue(":offset", ((current-1)*pagesize));
-    query.exec();
+
+//        query.prepare("SELECT * from users where username like %:username% limit (:pagesize) offset (:offset)");
+
+
+        query.prepare("SELECT * from users where username like '%"+serach+"%' " );
+
+//        query.bindValue(":serach", serach);
+        query.bindValue(":pagesize", pagesize);
+        query.bindValue(":offset", ((current-1)*pagesize));
+
+
+
+    if(query.exec())
+    {  qDebug() << "add person sucesss" ;
+    }
+    else
+    {
+        qDebug() << "add person failed: " << query.lastError();
+    }
+
     qDebug() << "last"<<query.lastQuery();
-//    int idName = query.record().indexOf("username");
     return query;
-//    while (query.next())
-//    {
-//        QString name = query.value(idName).toString();
-//        qDebug() << "===" << name;
-//    }
 }
 
 bool DbManager::addPerson(const QString& name)

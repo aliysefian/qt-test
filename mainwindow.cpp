@@ -16,14 +16,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 //    setCentralWidget(ui->tableView);
-
     QSqlQuery query;
     DbManager db(path);
     _current_page++;
    if(db.isOpen()){
-       query=db.getUserTable(_pagination_per_page,_current_page);
+       query=db.getUserTable(_pagination_per_page,_current_page,"");
        _totalUserInDb=db.countUser();
        ui->lblCountOfUser->setText(QString("Total User is : %1").arg(_totalUserInDb.toString()));
        qDebug() << "Endss"<<_totalUserInDb;
@@ -33,40 +31,37 @@ MainWindow::MainWindow(QWidget *parent) :
        qDebug() << "Database is not open!";
    }
    QSqlQueryModel* modal=new QSqlQueryModel();
-
-
    modal->setQuery(query);
    ui->tbl_user->setModel(modal);
-
 }
 
 
 
 void MainWindow::setCurrentUser(const QMap<QString, QString> currentUserInfo)
 {
-    qDebug()<<"fu"<<currentUserInfo;
     _currentUserInfo=currentUserInfo;
     ui->lblCurrentUser->setText(QString("Welcome User: %1 ").arg(_currentUserInfo["username"]));
 }
 
 void MainWindow::on_btn_load_user_data_clicked()
 {
-     QSqlQuery query;
-     DbManager db(path);
-    if(db.isOpen()){
-        qDebug() << "End";
-    }
-    else
-    {
-        qDebug() << "Database is not open!";
-    }
-    QSqlQueryModel* modal=new QSqlQueryModel();
-
-
-    modal->setQuery(query);
-    ui->tbl_user->setModel(modal);
-
-
+    QSqlQuery query;
+    DbManager db(path);
+    _current_page++;
+   if(db.isOpen()){
+       query=db.getUserTable(_pagination_per_page,_current_page,"");
+       _totalUserInDb=db.countUser();
+       ui->lblCountOfUser->setText(QString("Total User is : %1").arg(_totalUserInDb.toString()));
+       qDebug() << "Endss"<<_totalUserInDb;
+   }
+   else
+   {
+       qDebug() << "Database is not open!";
+   }
+   QSqlQueryModel* modal=new QSqlQueryModel();
+   modal->setQuery(query);
+   ui->tbl_user->setModel(modal);
+   ui->tbl_user->viewport()->update();
 
 }
 
@@ -107,7 +102,8 @@ void MainWindow::on_btnNext_clicked()
 
 
    if(db.isOpen()){
-       query=db.getUserTable(_pagination_per_page,_current_page);
+       QString search=ui->txtSearch->text();
+       query=db.getUserTable(_pagination_per_page,_current_page,search);
        ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString()));
    }
    else
@@ -134,7 +130,8 @@ void MainWindow::on_btnPrevPage_clicked()
         return ;
     }
    if(db.isOpen()){
-       query=db.getUserTable(_pagination_per_page,_current_page);
+        QString search=ui->txtSearch->text();
+       query=db.getUserTable(_pagination_per_page,_current_page,search);
        //get total count of User
        ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString())); 
    }
@@ -150,4 +147,29 @@ void MainWindow::on_btnPrevPage_clicked()
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_txtSearch_textChanged(const QString &arg1)
+{
+    QSqlQuery query;
+    DbManager db(path);
+    _current_page++;
+   if(db.isOpen()){
+       query=db.getUserTable(_pagination_per_page,_current_page,arg1);
+//       _totalUserInDb=db.countUser();
+//       ui->lblCountOfUser->setText(QString("Total User is : %1").arg(_totalUserInDb.toString()));
+//       qDebug() << "Endss"<<_totalUserInDb;
+   }
+   else
+   {
+       qDebug() << "Database is not open!";
+   }
+   QSqlQueryModel* modal=new QSqlQueryModel();
+   modal->setQuery(query);
+
+   ui->tbl_user->setModel(modal);
+   ui->tbl_user->viewport()->update();
+
+
+
 }

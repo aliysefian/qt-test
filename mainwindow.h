@@ -31,12 +31,15 @@ public:
         void on_btnPrevPage_clicked();
 
 
+        void on_txtSearch_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     int _current_page=0;
     int _pagination_per_page=10;
     QVariant _totalUserInDb;
     QMap<QString, QString> _currentUserInfo;
+
 };
 
 #endif // MAINWINDOW_H

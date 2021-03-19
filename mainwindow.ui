@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1055</width>
-    <height>500</height>
+    <width>1058</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <property name="geometry">
      <rect>
       <x>25</x>
-      <y>41</y>
+      <y>81</y>
       <width>16</width>
       <height>16</height>
      </rect>
@@ -35,7 +35,7 @@
     <property name="geometry">
      <rect>
       <x>900</x>
-      <y>410</y>
+      <y>450</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -48,7 +48,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>410</y>
+      <y>450</y>
       <width>101</width>
       <height>31</height>
      </rect>
@@ -61,7 +61,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>90</y>
       <width>1011</width>
       <height>349</height>
      </rect>
@@ -71,7 +71,7 @@
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>420</y>
+      <y>460</y>
       <width>321</width>
       <height>21</height>
      </rect>
@@ -89,7 +89,7 @@ backgound-color:&quot;red&quot;
     <property name="geometry">
      <rect>
       <x>800</x>
-      <y>410</y>
+      <y>450</y>
       <width>91</width>
       <height>31</height>
      </rect>
@@ -102,7 +102,7 @@ backgound-color:&quot;red&quot;
     <property name="geometry">
      <rect>
       <x>130</x>
-      <y>410</y>
+      <y>450</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -128,13 +128,35 @@ backgound-color:&quot;red&quot;
      <string/>
     </property>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>381</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="lblSearch">
+       <property name="text">
+        <string>Serach:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="txtSearch"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1055</width>
+     <width>1058</width>
      <height>22</height>
     </rect>
    </property>
