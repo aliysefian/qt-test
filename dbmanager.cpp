@@ -137,22 +137,22 @@ bool DbManager::removePerson(const QString& name)
 {
     bool success = false;
 
-    if (personExists(name))
-    {
-        QSqlQuery queryDelete;
-        queryDelete.prepare("DELETE FROM people WHERE name = (:name)");
-        queryDelete.bindValue(":name", name);
-        success = queryDelete.exec();
+//    if (personExists(name))
+//    {
+    QSqlQuery queryDelete;
+    queryDelete.prepare("DELETE FROM people WHERE name = (:name)");
+    queryDelete.bindValue(":name", name);
+    success = queryDelete.exec();
 
-        if(!success)
-        {
-            qDebug() << "remove person failed: " << queryDelete.lastError();
-        }
-    }
-    else
+    if(!success)
     {
-        qDebug() << "remove person failed: person doesnt exist";
+        qDebug() << "remove person failed: " << queryDelete.lastError();
     }
+//    }
+//    else
+//    {
+//        qDebug() << "remove person failed: person doesnt exist";
+//    }
 
     return success;
 }
@@ -209,14 +209,38 @@ QMap<QString, QString> DbManager::getUser(QString id) const
         }
 
             return data;
-//            n exists;
 
-//    int idName = query.record().indexOf("username");
-//    while (query.next())
-//    {
-//        QString name = query.value(idName).toString();
-//        qDebug() << "===" << name;
-            //    }
+}
+
+QMap<QString, QString> DbManager::UserExistWitdata(const QString &name, const QString &password,bool* exist)
+{
+
+        QSqlQuery query;
+        query.prepare("SELECT id, username FROM users where username=:username and password=:password");
+        query.bindValue(":username",name);
+        query.bindValue(":password",password);
+
+        QMap<QString, QString> data;
+
+            if (query.exec())
+            {
+                int idName = query.record().indexOf("id");
+                int idUsername = query.record().indexOf("username");
+
+
+                if (query.next())
+                {
+                     data.insert("id",query.value(idName).toString() );
+                     data.insert("username",query.value(idUsername).toString() );
+                     *exist=true;
+                     qDebug() << "===" << data;
+                }
+            }
+            else
+            {
+                qDebug() << "Users exists failed: " << query.lastError();
+            }
+            return data;
 }
 
 QVariant DbManager::countUser()
@@ -297,13 +321,14 @@ bool DbManager::updateUser(const QString& id,const QString& name,const QString& 
 
 
 
-bool DbManager::personExists(const QString& name) const
+bool DbManager::personExists(const QString& name,const QString& password) const
 {
     bool exists = false;
 
     QSqlQuery checkQuery;
-    checkQuery.prepare("SELECT name FROM people WHERE name = (:name)");
+    checkQuery.prepare("SELECT username FROM users WHERE username= (:name) and password=:pass");
     checkQuery.bindValue(":name", name);
+    checkQuery.bindValue(":pass", password);
 
     if (checkQuery.exec())
     {

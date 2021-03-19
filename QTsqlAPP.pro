@@ -32,19 +32,22 @@ SOURCES += \
         mainwindow.cpp \
     dbmanager.cpp \
     testmodel.cpp \
-    createuser.cpp
+    createuser.cpp \
+    login.cpp
 
 
 HEADERS += \
         mainwindow.h \
     dbmanager.h \
     testmodel.h \
-    createuser.h
+    createuser.h \
+    login.h
 
 
 FORMS += \
         mainwindow.ui \
-    createuser.ui
+    createuser.ui \
+    login.ui
 
 RESOURCES += \
     resources.qrc

@@ -124,10 +124,6 @@ void CreateUser::createUser()
     bool query;
     DbManager db(path);
    if(db.isOpen()){
-//        db.createTable();
-//        db.addPerson("ali");    void on_pushButton_2_clicked();
-
-//        db.addPerson("reza");
        query=db.addUser(username,md5Pass,(cmb+1),date,description);
        qDebug() << username << md5Pass << cmb << "End";
    }

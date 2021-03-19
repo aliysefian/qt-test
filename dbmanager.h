@@ -39,7 +39,7 @@ public:
           * @param name - name of person to check.
           * @return true - person exists, false - person does not exist
           */
-         bool personExists(const QString& name) const;
+         bool personExists(const QString& name, const QString &password) const;
 
          /**
           * @brief Print names of all persons in db
@@ -67,6 +67,10 @@ public:
                       const int& role,const QString& expire_date,
                       const QString& description);
         QMap<QString,QString> getUser(QString id) const  ;
+
+
+
+        QMap<QString,QString> UserExistWitdata(const QString& name, const QString &password, bool *exist)  ;
 
         /**
          * @brief  all count Users of  db
