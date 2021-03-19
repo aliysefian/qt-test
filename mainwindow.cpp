@@ -40,22 +40,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-MainWindow::~MainWindow()
+
+
+void MainWindow::setCurrentUser(const QMap<QString, QString> currentUserInfo)
 {
-    delete ui;
+    qDebug()<<"fu"<<currentUserInfo;
+    _currentUserInfo=currentUserInfo;
+    ui->lblCurrentUser->setText(QString("Welcome User: %1 ").arg(_currentUserInfo["username"]));
 }
-
-
 
 void MainWindow::on_btn_load_user_data_clicked()
 {
      QSqlQuery query;
      DbManager db(path);
     if(db.isOpen()){
-//        db.createTable();
-//        db.addPerson("ali");
-//        db.addPerson("reza");
-//        query=db.getUserTable();
         qDebug() << "End";
     }
     else
@@ -79,9 +77,6 @@ void MainWindow::on_tbl_user_doubleClicked(const QModelIndex &index)
     int row;
     foreach (QModelIndex index, indexList) {
         row = index.row();
-
-        qDebug() << "ali" <<row<<ui->tbl_user->model()->index(row,0).data().toString();
-
         CreateUser userFrom;
         userFrom.setModal(true);
         userFrom.getDataBetweenForms
@@ -105,7 +100,6 @@ void MainWindow::on_btnNext_clicked()
     QSqlQuery query;
     DbManager db(path);
     _current_page++;
-    qDebug() << _current_page<< _pagination_per_page;
     if(((_current_page)*_pagination_per_page)>=_totalUserInDb.toInt())
         ui->btnNext->setEnabled(false);
     else
@@ -113,14 +107,8 @@ void MainWindow::on_btnNext_clicked()
 
 
    if(db.isOpen()){
-
-
        query=db.getUserTable(_pagination_per_page,_current_page);
-
-
-       //get total count of User
        ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString()));
-       qDebug() << "Endss"<<db.countUser();
    }
    else
    {
@@ -147,11 +135,8 @@ void MainWindow::on_btnPrevPage_clicked()
     }
    if(db.isOpen()){
        query=db.getUserTable(_pagination_per_page,_current_page);
-
-
        //get total count of User
-       ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString()));
-       qDebug() << "Endss"<<db.countUser();
+       ui->lblCountOfUser->setText(QString("Total User is : %1").arg(db.countUser().toString())); 
    }
    else
    {
@@ -159,7 +144,10 @@ void MainWindow::on_btnPrevPage_clicked()
    }
    QSqlQueryModel* modal=new QSqlQueryModel();
 
-
    modal->setQuery(query);
    ui->tbl_user->setModel(modal);
+}
+MainWindow::~MainWindow()
+{
+    delete ui;
 }

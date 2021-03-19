@@ -27,6 +27,7 @@ void Login::on_btnLogin_clicked()
        QMap<QString,QString> userData=db.UserExistWitdata(username,md5Pass,&exist);
 
        if(exist){
+           _currenUser=userData;
            qDebug()<<"exist";
            MainWindow w;
            w.show();
@@ -49,4 +50,9 @@ void Login::on_btnLogin_clicked()
    }
 
 
+}
+
+QMap<QString, QString> Login::getCurrentUser()
+{
+    return _currenUser;
 }

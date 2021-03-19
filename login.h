@@ -19,12 +19,15 @@ class Login : public QDialog
 public:
     explicit Login(QWidget *parent = 0);
     ~Login();
+     QMap<QString,QString> getCurrentUser();
 
 private slots:
     void on_btnLogin_clicked();
 
+
 private:
     Ui::Login *ui;
+    QMap<QString,QString> _currenUser ;
 };
 
 #endif // LOGIN_H

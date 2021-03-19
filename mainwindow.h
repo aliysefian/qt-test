@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QAbstractTableModel>
 #include <QSqlQuery>
-
+#include <QMap>
 
 namespace Ui {
 class MainWindow;
@@ -17,7 +17,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    void setCurrentUser(const QMap<QString,QString> currentUserInfo);
 
     private slots:
         void on_btn_load_user_data_clicked();
@@ -30,11 +30,13 @@ public:
 
         void on_btnPrevPage_clicked();
 
+
 private:
     Ui::MainWindow *ui;
     int _current_page=0;
     int _pagination_per_page=10;
     QVariant _totalUserInDb;
+    QMap<QString, QString> _currentUserInfo;
 };
 
 #endif // MAINWINDOW_H
