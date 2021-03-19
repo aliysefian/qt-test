@@ -96,12 +96,7 @@ void CreateUser::load_combo_relation_role_id()
    QSqlQueryModel* modal=new QSqlQueryModel();
    modal->setQuery(query);
    ui->cmbRoles->setModel(modal);
-   ui->cmbRoles->setModelColumn(1); // for id being as id and secound col for label usr
-
-
-//    for(int i=1;i<11;i++){
-//        ui->cmbRoles->addItem();
-//    }
+   ui->cmbRoles->setModelColumn(1); // for id being as id and secound col for label use
 }
 
 void CreateUser::on_cmbRoles_currentIndexChanged(int index)
@@ -121,10 +116,26 @@ void CreateUser::createUser()
     QString md5Pass = QString(QCryptographicHash::hash((password.toUtf8()),QCryptographicHash::Md5).toHex());
 
     QString path="";
-    bool query;
+    bool status;
     DbManager db(path);
    if(db.isOpen()){
-       query=db.addUser(username,md5Pass,(cmb+1),date,description);
+       status=db.addUser(username,md5Pass,(cmb+1),date,description);
+       if(status){
+           QMessageBox::information(this, tr("Update User "),
+                                         tr("updating user was succeful."
+                                            ),
+                                         QMessageBox::Ok
+                                         );
+       }else{
+
+
+               QMessageBox::warning(this, tr("Update User "),
+                                             tr("updating user was not success ."
+                                                ),
+                                             QMessageBox::Ok
+                                             );
+
+       }
        qDebug() << username << md5Pass << cmb << "End";
    }
    else
@@ -153,8 +164,6 @@ void CreateUser::updateUser()
 
     if(passwordOld.length()>0){
         if(md5PassOld==_password){
-            qDebug()<< "equallll";
-
             QString path="";
             bool query;
             DbManager db(path);
@@ -170,9 +179,6 @@ void CreateUser::updateUser()
             return;
         }
         else{
-//            QMessageBox msgBox;
-//            msgBox.setText("Your old password does not match.");
-//            msgBox.exec();
             QMessageBox::critical(this, tr("Update User "),
                                           tr("Your old password does not match."
                                              ),
@@ -181,14 +187,34 @@ void CreateUser::updateUser()
             return;
         }
     }
+
+
     qDebug()<< "change without passowd";
 
     QString path="";
-    bool query;
+    bool status;
     DbManager db(path);
    if(db.isOpen()){
-       query=db.updateUser(_idUser,username,permision,md5NewPassword,(cmb+1),date,description,false);
+       status=db.updateUser(_idUser,username,permision,md5NewPassword,(cmb+1),date,description,false);
+
+       if(status){
+           QMessageBox::information(this, tr("Update User "),
+                                         tr("updating user was succeful."
+                                            ),
+                                         QMessageBox::Ok
+                                         );
+       }else{
+
+
+               QMessageBox::warning(this, tr("Update User "),
+                                             tr("updating user was not success ."
+                                                ),
+                                             QMessageBox::Ok
+                                             );
+
+       }
        qDebug() << username << md5NewPassword << cmb << "End";
+
    }
    else
    {

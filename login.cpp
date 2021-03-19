@@ -28,6 +28,7 @@ void Login::on_btnLogin_clicked()
 
        if(exist){
            _currenUser=userData;
+           updateLastLoginOfUser(userData["id"]);
            qDebug()<<"exist";
            MainWindow w;
            w.show();
@@ -50,6 +51,32 @@ void Login::on_btnLogin_clicked()
    }
 
 
+}
+
+bool Login::updateLastLoginOfUser(QString userId)
+{
+    DbManager db("");
+    if(db.isOpen()){
+        bool status=false;
+
+        status=db.updateUserLastLoginDate(userId);
+
+    if(!status){
+
+
+                QMessageBox::warning(this, tr("Update User "),
+                                              tr("updating user was not success ."
+                                                 ),
+                                              QMessageBox::Ok
+                                              );
+
+        }
+
+    }
+    else
+    {
+        qDebug() << "Database is not open!";
+    }
 }
 
 QMap<QString, QString> Login::getCurrentUser()

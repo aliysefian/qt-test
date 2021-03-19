@@ -28,6 +28,7 @@ private slots:
 private:
     Ui::Login *ui;
     QMap<QString,QString> _currenUser ;
+    bool updateLastLoginOfUser(QString userId) ;
 };
 
 #endif // LOGIN_H

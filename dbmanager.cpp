@@ -326,6 +326,30 @@ bool DbManager::updateUser(const QString& id,const QString& name,const QString& 
 
 }
 
+bool DbManager::updateUserLastLoginDate(const QString &id)
+{
+    bool success = false;
+
+        QSqlQuery queryAdd;
+        int ids=id.toInt();
+        queryAdd.prepare("update users set (last_login_date) = datetime('now', 'localtime') where id="+id);
+//        queryAdd.bindValue(":ids", ids);
+
+        if(queryAdd.exec())
+        {
+             qDebug() <<"ttttttttttttttttt"<<queryAdd.executedQuery();
+            success = true;
+        }
+        else
+        {
+            qDebug() << "update failed: " << queryAdd.lastError();
+        }
+
+
+    return success;
+
+}
+
 
 
 bool DbManager::personExists(const QString& name,const QString& password) const

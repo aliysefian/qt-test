@@ -87,6 +87,12 @@ public:
         bool updateUser(const QString &id, const QString& name,const QString& permission, const QString& password,
                             const int& role, const QString& expire_date,
                             const QString& description, const bool &isPaswordChangeMode);
+        /**
+         * @brief  all count Users of  db
+         * @param
+         * @return  return all count Users of  db
+         */
+        bool updateUserLastLoginDate(const QString &id);
 
 
 private:
