@@ -14,7 +14,7 @@
 - Md5 Encryptions
 
 ## Installation
-first login username=2 and password=w
+first login username=w and password=w
 
 
 
